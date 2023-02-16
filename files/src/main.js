@@ -811,6 +811,16 @@ function menu_build() {
 					}
 				},
 				{
+					label: "Auto-evaluate line, backwards (ucinewgame)",
+					accelerator: "Ctrl+Shift+F12",
+					click: () => {
+						win.webContents.send("call", {
+							fn: "set_behaviour",
+							args: ["back_analysis_ucinewgame"]
+						});
+					}
+				},
+				{
 					type: "separator"
 				},
 				{
@@ -3440,6 +3450,16 @@ function menu_build() {
 						win.webContents.send("call", {
 							fn: "set_behaviour",
 							args: ["self_play"],
+						});
+					}
+				},
+				{
+					label: "Start self-play (ucinewgame)",
+					accelerator: "Ctrl+F11",
+					click: () => {
+						win.webContents.send("call", {
+							fn: "set_behaviour",
+							args: ["self_play_ucinewgame"],
 						});
 					}
 				},

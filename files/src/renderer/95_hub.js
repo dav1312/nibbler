@@ -74,10 +74,14 @@ let hub_props = {
 
 		case "auto_analysis":
 		case "back_analysis":
+		case "back_analysis_ucinewgame":
 
 			if (this.tree.node.terminal_reason()) {
 				this.continue_auto_analysis();				// This can get a bit recursive, do we care?
 			} else if (this.engine.search_desired.node !== this.tree.node || this.engine.search_desired.limit !== this.node_limit()) {
+				if (config.behaviour === "back_analysis_ucinewgame") {
+					this.engine.send_ucinewgame();
+				}
 				this.__go(this.tree.node);
 			}
 			break;
@@ -105,10 +109,12 @@ let hub_props = {
 			break;
 
 		case "self_play":
+		case "self_play_ucinewgame":
 		case "play_white":
 		case "play_black":
 
 			if ((config.behaviour === "self_play") ||
+				(config.behaviour === "self_play_ucinewgame") ||
 				(config.behaviour === "play_white" && this.tree.node.board.active === "w") ||
 				(config.behaviour === "play_black" && this.tree.node.board.active === "b")) {
 
@@ -118,6 +124,9 @@ let hub_props = {
 				}
 
 				if (this.engine.search_desired.node !== this.tree.node || this.engine.search_desired.limit !== this.node_limit()) {
+					if (config.behaviour === "self_play_ucinewgame") {
+						this.engine.send_ucinewgame();
+					}
 					this.__go(this.tree.node);
 				}
 
@@ -165,7 +174,7 @@ let hub_props = {
 		// Caller can tell us the change would cause user confusion for some modes...
 
 		if (avoid_confusion) {
-			if (["play_white", "play_black", "self_play", "auto_analysis", "back_analysis"].includes(config.behaviour)) {
+			if (["play_white", "play_black", "self_play", "self_play_ucinewgame", "auto_analysis", "back_analysis", "back_analysis_ucinewgame"].includes(config.behaviour)) {
 				this.set_behaviour("halt");
 			}
 		}
@@ -245,7 +254,7 @@ let hub_props = {
 
 		if (config.behaviour === "auto_analysis") {
 			ok = this.tree.next();
-		} else if (config.behaviour === "back_analysis") {
+		} else if (config.behaviour === "back_analysis" || config.behaviour === "back_analysis_ucinewgame") {
 			ok = this.tree.prev();
 		}
 
@@ -959,6 +968,7 @@ let hub_props = {
 		switch (config.behaviour) {
 
 		case "self_play":
+		case "self_play_ucinewgame":
 		case "play_white":
 		case "play_black":
 
@@ -984,6 +994,7 @@ let hub_props = {
 
 		case "auto_analysis":
 		case "back_analysis":
+		case "back_analysis_ucinewgame":
 
 			if (relevant_node !== this.tree.node) {
 				LogBoth(`(ignored bestmove, relevant_node !== hub.tree.node, config.behaviour was "${config.behaviour}")`);
@@ -1120,8 +1131,10 @@ let hub_props = {
 		case "play_white":
 		case "play_black":
 		case "self_play":
+		case "self_play_ucinewgame":
 		case "auto_analysis":
 		case "back_analysis":
+		case "back_analysis_ucinewgame":
 
 			cfg_value = engineconfig[this.engine.filepath].search_nodes_special;
 			break;
