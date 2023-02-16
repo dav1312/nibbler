@@ -21,6 +21,19 @@ function NewLooker() {
 	return looker;
 }
 
+function chessDbEnoughPieces(fen) {
+	const MIN_TOTAL = 10, MIN_NON_PAWN = 4;
+	return (countPieces(fen) >= MIN_TOTAL && countPieces(fen, true) >= MIN_NON_PAWN)
+}
+
+function countPieces(fen, attackers = false) {
+	let board = fen.toLowerCase().split(" ")[0].split("");
+	let pieces = "qrbn";
+	if (!attackers) pieces += "kp";
+	const count = board.length - board.filter((fenPiece) => !pieces.includes(fenPiece)).length;
+	return count;
+}
+
 let looker_props = {
 
 	clear_queue: function() {
@@ -143,10 +156,11 @@ let looker_props = {
 		let friendly_fen = query.board.fen(true);
 		let fen_for_web = ReplaceAll(friendly_fen, " ", "%20");
 
-		let url;
+		let url, url_queue = "";
 
 		if (query.db_name === "chessdbcn") {
 			url = `http://www.chessdb.cn/cdb.php?action=queryall&json=1&board=${fen_for_web}`;
+			url_queue = `http://www.chessdb.cn/cdb.php?action=queue&board=${fen_for_web}`;
 		} else if (query.db_name === "lichess_masters") {
 			url = `http://explorer.lichess.ovh/masters?topGames=0&fen=${fen_for_web}`;
 		} else if (query.db_name === "lichess_plebs") {
@@ -167,6 +181,15 @@ let looker_props = {
 			return response.json();
 		}).then(raw_object => {
 			this.handle_response_object(query, raw_object);
+			console.log(raw_object);
+			if (
+				chessDbEnoughPieces(friendly_fen) &&
+				url_queue != "" &&
+				(raw_object.status == "unknown" || raw_object.moves?.length < 5)
+			) {
+				fetch(url_queue);
+				hub.set_special_message("Requested to ChessDB", "green", 250);
+			}
 		});
 	},
 
