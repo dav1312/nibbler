@@ -1035,7 +1035,7 @@ let hub_props = {
 
 			if (!this.engine.leelaish && !engineconfig[this.engine.filepath].options["MultiPV"]) {
 				// This likely indicates the engine is new to the config.
-				engineconfig[this.engine.filepath].options["MultiPV"] = 3;				// Will get ack'd when engine_send_all_options() happens
+				engineconfig[this.engine.filepath].options["MultiPV"] = 1;				// Will get ack'd when engine_send_all_options() happens
 				engineconfig[this.engine.filepath].search_nodes_special = 10000000;
 				this.send_ack_node_limit(true);
 			}

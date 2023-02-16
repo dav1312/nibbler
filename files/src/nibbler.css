@@ -253,3 +253,106 @@ span.movelist_highlight_yellow {
 span.nobr {
 	white-space: nowrap;				/* Used for O-O and O-O-O moves */
 }
+
+/* ----------------------------------- */
+
+#rightgridder {
+	position: relative;
+}
+
+#graph {
+	border-top: 1px solid #666666;
+	border-bottom: 1px solid #666666;
+}
+
+.pink {
+	color: #999999;
+}
+
+.infoline > .gray:last-child {
+	color: #ff8a8ab3;
+}
+
+#infobox {
+	margin-top: .5em;
+	margin-left: calc(1em - 5px);
+}
+
+#infobox > .infoline {
+	margin-bottom: 0;
+	padding-top: .5em;
+	padding-bottom: .5em;
+	border-bottom: .5px solid #99999969;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+#infobox > .infoline:hover {
+	white-space: normal;
+	word-break: break-all;
+}
+
+#infobox > .infoline > .gray {
+	margin-left: 5px;
+}
+
+#infobox > .infoline > [id^="infobox_"] {
+	word-break: break-all;
+	white-space: nowrap;
+	padding: 0 5px 0 5px;
+	border-radius: 3px;
+	transition: .1s;
+}
+
+#infobox > .infoline > [id^="infobox_"]:first-child {
+	margin-left: -6px;
+}
+
+#infobox > .infoline > [id^="infobox_"]:hover {
+	background-color: #eeeeee1f;
+	transition: .1s;
+}
+
+#fenbox {
+	margin: calc(.5em - 4px) calc(1em - 4px);
+	padding: 8px;
+}
+
+#fenbox:focus {
+	outline-offset: 0;
+}
+
+#movelist {
+	margin: 0;
+	padding: 0 1em 1em calc(1em - 2px);
+}
+
+#movelist > span {
+	display: inline-block;
+	padding: 0 5px 0 5px;
+	border-radius: 3px;
+	transition: .1s;
+}
+
+#movelist > span:hover {
+	background-color: #eeeeee33;
+	transition: .1s;
+}
+
+#movelist > .movelist_highlight_blue {
+	background-color: #eeeeee40;
+	color: #eeeeee;
+}
+
+#movelist > .movelist_highlight_yellow {
+	background-color: #ffff0033;
+}
+
+#movelist > .movelist_highlight_yellow:hover {
+	background-color: #ffff0040;
+}
+
+#statusbox > .gray {
+	white-space: normal;
+}

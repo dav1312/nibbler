@@ -285,7 +285,7 @@ const node_prototype = {
 		let s = "";
 
 		if (need_number_string) {
-			s += this.parent.board.next_number_string() + " ";
+			s += this.parent.board.next_number_string();
 		}
 
 		s += this.nice_move();

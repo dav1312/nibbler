@@ -201,9 +201,9 @@ const info_prototype = {
 			mate = 0 - mate;
 		}
 		if (mate < 0) {
-			return `(-M${0 - mate})`;
+			return `-M${0 - mate}`;
 		} else {
-			return `(+M${mate})`;
+			return `+M${mate}`;
 		}
 	},
 

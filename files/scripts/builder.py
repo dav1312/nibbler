@@ -25,7 +25,7 @@ for key, value in zips.items():
 		continue
 
 	# make build directory
-	build_dir = "scripts/dist/nibbler-{}-{}".format(version, key)
+	build_dir = "scripts/dist/nibbler-latest".format(version, key)
 	os.makedirs(build_dir)
 
 	# copy files

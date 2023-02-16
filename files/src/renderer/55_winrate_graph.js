@@ -34,6 +34,8 @@ function NewGrapher() {
 		let eval_list = node.future_eval_history();
 
 		this.draw_50_percent_line(width, height);
+		this.draw_percent_lines(width, height);
+		this.draw_white_side(width, height);
 		this.draw_position_line(eval_list.length, node);
 
 		// We make lists of contiguous edges that can be drawn at once...
@@ -149,6 +151,22 @@ function NewGrapher() {
 		graphctx.beginPath();
 		graphctx.moveTo(0, height / 2 + pixel_y_adjustment);
 		graphctx.lineTo(width, height / 2 + pixel_y_adjustment);
+		graphctx.stroke();
+	};
+
+	grapher.draw_percent_lines = function(width, height) {
+
+		graphctx.fillStyle = "#ffffff33";
+		for (let i = 0; i < 5; i++) {
+			graphctx.fillRect(0, height / 10 * i * 2, width, height / 10);
+		}
+		graphctx.stroke();
+	};
+
+	grapher.draw_white_side = function(width, height) {
+
+		graphctx.fillStyle = "#ffffff1a";
+		graphctx.fillRect(0, 0, width, height / 2);
 		graphctx.stroke();
 	};
 

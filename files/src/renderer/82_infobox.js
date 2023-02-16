@@ -190,13 +190,13 @@ let infobox_props = {
 				let numstring = "";
 				if (config.infobox_pv_move_numbers) {
 					if (colour === "w") {
-						numstring = `${movenum}. `;
+						numstring = `${movenum}.`;
 					} else if (colour === "b" && i === 0) {
-						numstring = `${movenum}... `;
+						numstring = `${movenum}...`;
 					}
 				}
 
-				substrings.push(`<span id="infobox_${clicker_index++}" class="${spanclass}">${numstring}${nice_pv[i]} </span>`);
+				substrings.push(`<span id="infobox_${clicker_index++}" class="${spanclass}">${numstring}${nice_pv[i]}</span>`);
 				this.info_clickers.push({
 					move: info.pv[i],
 					is_start: i === 0,
@@ -253,7 +253,7 @@ let infobox_props = {
 				if (config.infobox_stats_newline) {
 					substrings.push("<br>");
 				}
-				substrings.push(`<span class="gray">(${extra_stat_strings.join(', ')})</span>`);
+				substrings.push(`<span class="gray">${extra_stat_strings.join(' | ')}</span>`);
 			}
 
 			// Close the whole div...
